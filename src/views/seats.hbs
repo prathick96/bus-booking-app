@@ -3,34 +3,18 @@
   <span style="padding: 5px;background-color :white; border:1px solid black;">Available</span>
   <span style="padding: 5px;background-color :#ade498; border:1px solid black;">Selected</span>
   <div class="card mb-3">
-    <div class="card-body" style="min-height:400px;background-color:#0f4c75;">
+    <div class="card-body" style="min-height:400px;background-color:whitesmoke;">
       <div class="row">
         {{#each data}}
         {{#if (rowfour this.seats)}}<div class="col-lg-2"></div>{{/if}}
         {{#if (rowstart this.seats)}}<div class="col-lg-2"></div>{{/if}}
         <div class=" seats col-lg-1  col-sm-1" data-id={this.seats}>
-          <span style="color: white"> {{this.seats}}</span>
-          <svg min-width="40" min-height="40" max-width="81" max-height="77" viewBox="0 0 181 177" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <g id="chair">
-              <path id="center" class="seat{{this.seats}}" data-id={{this.seats}}
-                d="M6.5 151V24V21L12 19H47V21L52 28.5L59 33.5H146.5V145.5H66H57L50 151L47 157.5H15H10L6.5 155V151Z"
-                fill={{#if (equality this.availability)}}white {{else}} red{{/if}} stroke="black" />
-              </path>
-              <path id="rightArm" class="seat{{this.seats}}" data-id={{this.seats}}
-                d="M53 20.5V16.5V11.5L56 9L61.5 6.5H152L156.5 9L160 11.5V14.5L156.5 16.5L152 18.5L148 23.5L146.5 27.5H91H61.5L56 25L53 20.5Z"
-                fill={{#if (equality this.availability)}}white {{else}} red {{/if}} stroke="black" />
-              <path id="leftarm" class="seat{{this.seats}}" data-id={{this.seats}}
-                d="M53.5 165V161V157.5L55.5 153L61 151H146.5L149 157.5L153.5 161L156 163.5L159.5 165L157 169L153.5 172H61L57 169L53.5 165Z"
-                fill={{#if (equality this.availability)}}white {{else}} red {{/if}} stroke="black" />
-              <path id="back" class="seat{{this.seats}}" data-id={{this.seats}}
-                d="M159.5 20H164.5H168.5L172 23L175 26.5V152L172 155L166.5 160.5H162L154.5 157L152.5 152V26.5L154.5 23L159.5 20Z"
-                fill={{#if (equality this.availability)}}white {{else}} red {{/if}} stroke="black" />
-              <path id="outline"
-                d="M0.5 22L4 16.5L8 15L13.5 14H37.5H47L49 9L54.5 3L61 1H152L158.5 3L161.5 6.5L164.5 14L170.5 16.5L176 20L180 26V147L178 157L170.5 163.5L164.5 166L163.5 169.5L158.5 174L152 176.5H58L52.5 172.5L49 167.5L47 163.5H9.5L4 159.5L0.5 154.5V43V22Z"
-                stroke="black" />
-            </g>
-          </svg>
+          <span style="color: blue"> {{this.seats}}</span>
+          <br>
+          <img class="seat-img"
+            src={{#if (equality this.availability)}}"https://res.cloudinary.com/dfppytfle/image/upload/v1605901718/seat-available_bxxjjh.png"
+            {{else}} "https://res.cloudinary.com/dfppytfle/image/upload/v1605901718/seat-booked_ulpfqd.png" {{/if}}
+            id={{#if (equality this.availability)}}"available" {{else}} "booked" {{/if}} />
         </div>
         {{#if (rowend this.seats)}}<div class="col-lg-2"></div>{{/if}}
         {{#if (rowmid this.seats)}}<div class="col-lg-7"></div>{{/if}}
@@ -48,18 +32,19 @@
 
     const $targetElement = event.target;
     const clas = `.${$targetElement.className.baseVal}`.toString();
-    const chair = document.querySelectorAll(clas)
-
+    const chair = document.querySelectorAll(clas);
+    console.log("outside for");
     for (i = 0; i < chair.length; i++) {
-
-      const id = chair[0].getAttribute("data-id")
-      if (chair[i].getAttribute("fill") == "white") {
+      console.log("inside for");
+      const id = chair[0].getAttribute("data-id");
+      console.log(chair[0].getAttribute("data-id"));
+      if (chair[i].getAttribute("id") == "available") {
         if (seatsSelected.length <= 2) {
           if (i == 0) {
             seatsSelected.push(id)
           }
           if ((seatsSelected.length < 3)) {
-            chair[i].setAttribute("fill", "#ade498");
+            chair[i].setAttribute("src", "https://res.cloudinary.com/dfppytfle/image/upload/v1605901718/seat-select_uhbwcj.png");
           }
         } else {
           seatsSelected.pop()
@@ -72,7 +57,7 @@
           let ind = seatsSelected.indexOf(id)
           seatsSelected.splice(ind, 1)
         }
-        chair[i].setAttribute("fill", "white");
+        chair[i].setAttribute("src", "https://res.cloudinary.com/dfppytfle/image/upload/v1605901718/seat-available_bxxjjh.png");
       }
     }
     console.log(seatsSelected)
