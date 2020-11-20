@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  {{#each data}}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{this.busName}}</h5>
+      <p class="card-text"><small class="text-muted">{{this.busDesc}}</small></p>
+      <div class="row">
+        <i class="fa fa-bus fa-4x col-lg-1 " aria-hidden="true"></i>
+        <p class="col-lg-2"> From : {{this.from}}</p>
+        <p class="col-lg-2"> To: {{this.to}}</p>
+        <p class="col-lg-4"> Departure time : {{this.depart}}</p>
+        <p class="col-lg-3"> Arrival time: {{this.arrive}}</p>
+      </div>
+      <div class="row my-2">
+        <p class="col-lg-2">Duration : {{this.duration}} hrs</p>
+        <p class="col-lg-2">Seats Available : {{this.seatsAvailable}}</p>
+        <p class="col-lg-2"> Rating : <label for="rating"
+            style="background-color: {{#if (rating this.rating)}} #ff5f40; {{else}} #47b300;{{/if}}  min-width:40px; text-align: center;">{{this.rating}}</label>
+        </p>
+        <p class="col-lg-3">Starting from : <b>RS {{this.price}}</b></p>
+        <a class="btn btn-primary" href="/viewseats/{{this.id}}">View Seats</a>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
